@@ -163,7 +163,7 @@
 <body>
 
   <div class="video-bg">
-    <video autoplay muted loop playsinline>
+    <video id="bgvid" autoplay muted loop playsinline preload="auto">
       <source src="office.mp4" type="video/mp4" />
     </video>
   </div>
@@ -185,6 +185,18 @@
   </div>
 
   <span class="footer">coremindai.io</span>
+
+  <script>
+    const vid = document.getElementById('bgvid');
+    vid.muted = true;
+    const tryPlay = () => vid.play().catch(() => {});
+    tryPlay();
+    document.addEventListener('click', tryPlay, { once: true });
+    document.addEventListener('touchstart', tryPlay, { once: true });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) tryPlay();
+    });
+  </script>
 
 </body>
 </html>
